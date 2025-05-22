@@ -1,74 +1,101 @@
-const quotes = [
-  "You are my today and all of my tomorrows.",
-  "I love you more every single day.",
-  "With you, forever isn’t long enough.",
-  "You’re the best thing I ever waited for.",
-  "Together is a beautiful place to be."
-];
+// Countdown logic
+const countdownOverlay = document.getElementById('countdown-overlay');
+const countdownEl = document.getElementById('countdown');
+const mainContent = document.getElementById('main-content');
 
-let index = 0;
-const quoteBox = document.getElementById("quoteBox");
+let count = 3;
 
-function changeQuote() {
-  quoteBox.style.opacity = 0;
-  setTimeout(() => {
-    quoteBox.innerText = quotes[index];
-    quoteBox.style.opacity = 1;
-    index = (index + 1) % quotes.length;
-  }, 800);
+function countdown() {
+  if (count > 1) {
+    count--;
+    countdownEl.textContent = count;
+  } else {
+    // Remove countdown and show main content
+    countdownOverlay.style.display = 'none';
+    mainContent.classList.remove('hidden');
+    startHeartShower(2000); // Heart shower for 2 seconds
+    startFloatingHearts();
+  }
 }
 
-setInterval(changeQuote, 5000);
+setInterval(countdown, 1000);
+
+// Background Music Toggle
+const bgMusic = document.getElementById('bgMusic');
+const musicToggle = document.querySelector('.music-toggle');
 
 function toggleMusic() {
-  const music = document.getElementById("bgMusic");
-  if (music.paused) music.play();
-  else music.pause();
+  if (bgMusic.paused) {
+    bgMusic.play();
+    musicToggle.style.color = '#d81e5b';
+  } else {
+    bgMusic.pause();
+    musicToggle.style.color = '#aaa';
+  }
 }
 
-// Countdown Logic (Improved)
-window.addEventListener("load", () => {
-  const countdownOverlay = document.getElementById("countdown-overlay");
-  const countdown = document.getElementById("countdown");
+// Heart Shower Animation
+const heartShowerContainer = document.getElementById('heart-shower');
 
-  let count = 3;
-  countdown.innerText = count;
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.textContent = '💖';
 
-  const interval = setInterval(() => {
-    count--;
-    if (count > 0) {
-      countdown.innerText = count;
-    } else {
-      clearInterval(interval);
-      // Hide countdown overlay smoothly
-      countdownOverlay.style.opacity = 0;
-      setTimeout(() => {
-        countdownOverlay.style.display = "none";
-        triggerHeartShower();
-      }, 500); // match fade out duration
-    }
-  }, 1000);
-});
+  heart.style.position = 'fixed';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.top = Math.random() * window.innerHeight + 'px';
+  heart.style.fontSize = (10 + Math.random() * 20) + 'px';
+  heart.style.opacity = 1;
+  heart.style.pointerEvents = 'none';
+  heart.style.zIndex = 9999;
+  heart.style.transition = 'all 1.5s ease-out';
 
-function triggerHeartShower() {
-  const container = document.getElementById("heart-shower");
+  heartShowerContainer.appendChild(heart);
 
-  // Create hearts
-  for (let i = 0; i < 50; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (1 + Math.random()) + "s";
-    container.appendChild(heart);
-  }
-
-  // Show heart shower container
-  container.style.display = "block";
-
-  // Hide heart shower and show main content after 2 seconds
   setTimeout(() => {
-    container.style.display = "none";
-    container.innerHTML = ""; // Clear hearts
-    document.getElementById("main-content").classList.remove("hidden");
-  }, 2000);
+    heart.style.top = (parseFloat(heart.style.top) - 100) + 'px';
+    heart.style.opacity = 0;
+  }, 10);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 1600);
+}
+
+function startHeartShower(duration = 2000) {
+  const interval = setInterval(createHeart, 150);
+  setTimeout(() => clearInterval(interval), duration);
+}
+
+// Floating Hearts Background
+const heartsContainer = document.querySelector('.hearts-container');
+
+function createFloatingHeart() {
+  const heart = document.createElement('div');
+  heart.textContent = '❤️';
+  heart.style.position = 'fixed';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.bottom = '-30px';
+  heart.style.fontSize = (12 + Math.random() * 18) + 'px';
+  heart.style.opacity = 0.6 + Math.random() * 0.4;
+  heart.style.pointerEvents = 'none';
+  heart.style.color = '#d81e5b';
+  heart.style.zIndex = 0;
+  heart.style.transition = 'transform 10s linear, opacity 10s linear';
+
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => {
+    heart.style.transform = `translateY(-${window.innerHeight + 50}px)`;
+    heart.style.opacity = 0;
+  }, 50);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 10500);
+}
+
+function startFloatingHearts() {
+  setInterval(createFloatingHeart, 400);
 }
