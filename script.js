@@ -1,12 +1,12 @@
 // Selectors
-const overlay = document.getElementById('overlay');
+const overlay = document.querySelector('.overlay');  // changed from getElementById('overlay')
 const countdownEl = document.getElementById('countdown');
 const heartBlushEl = document.getElementById('heart-blush');
 const wishMessage = document.getElementById('wish-message');
 const loveNotesEl = document.getElementById('love-notes');
 const voiceIcon = document.getElementById('voice-icon');
 const voiceButtons = document.getElementById('voice-buttons');
-const btnMaleVoice = document.getElementById('btn-male-voice');
+const btnMaleVoice = document.getElementById('btn-male-voice');   // IDs updated to match HTML
 const btnFemaleVoice = document.getElementById('btn-female-voice');
 const scrollingImages = document.querySelector('.scrolling-images');
 const audioPlayer = document.getElementById('background-music');
@@ -109,13 +109,14 @@ btnFemaleVoice.addEventListener('click', () => {
   );
 });
 
-// Smooth infinite scroll reset for scrolling images
+// Smooth infinite scroll reset for scrolling images (optional event)
 scrollingImages.addEventListener('animationiteration', () => {
-  // Optional: can add logic if needed on loop reset
+  // Optional: Add logic here if needed when scrolling resets
 });
 
 // Intro screen start: on clicking heart, hide overlay & start countdown
 document.querySelector('.heart-btn').addEventListener('click', () => {
-  overlay.style.display = 'none';
+  overlay.style.display = 'none';   // Hide intro overlay
+  document.getElementById('main-content').style.display = 'block'; // Show main content
   startCountdown();
 });
