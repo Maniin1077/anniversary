@@ -3,80 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Anniversary ❤️</title>
+  <title>Forever Yours 💖</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <!-- Intro Overlay -->
-  <div id="intro-overlay">
-    <div class="intro-content">
-      <p>Are you feeling excited?</p>
-      <p>Open the gift...</p>
-      <div class="heart-icon" onclick="startCountdown()">🎁</div>
-    </div>
-  </div>
 
   <!-- Countdown Overlay -->
-  <div id="countdown-overlay" class="hidden">
+  <div id="countdown-overlay">
     <div id="countdown">3</div>
   </div>
 
-  <!-- Main Content -->
+  <!-- Heart Shower Animation Container -->
+  <div id="heart-shower"></div>
+
+  <!-- Main Content Wrapper - Initially Hidden -->
   <div id="main-content" class="hidden">
-    <div class="hearts-container"></div>
+    <div class="container">
+      <header class="hero">
+        <h1>Forever Yours: Celebrating Our Love Story 💖</h1>
+        <p>Every heartbeat, every smile, every moment with you is a precious memory. Happy Anniversary!</p>
+      </header>
 
-    <!-- Heart Shower -->
-    <div id="heart-shower"></div>
+      <!-- Left & Right Vertical Decorative Lines -->
+      <div class="vertical-line left-line"></div>
+      <div class="vertical-line right-line"></div>
 
-    <!-- Music Toggle -->
-    <div class="music-toggle" onclick="toggleMusic()">🎵</div>
-    <audio id="bgMusic" loop>
+      <!-- Decorative Blubs -->
+      <div class="blubs">
+        <div class="blub long"></div>
+        <div class="blub medium"></div>
+        <div class="blub short"></div>
+      </div>
+
+      <!-- Slideshow with Small, Medium, Large Images -->
+      <div class="slideshow">
+        <img src="1.jpg" alt="Small photo" class="small shine" />
+        <img src="2.jpg" alt="Medium photo" class="medium shine" />
+        <img src="3.jpg" alt="Large photo" class="large shine" />
+      </div>
+
+      <!-- Scrolling Section with 4 Different Images -->
+      <section class="slider" aria-label="Scrolling photos">
+        <div class="slide-track">
+          <div class="slide"><img src="4.jpg" alt="Scroll 1" /></div>
+          <div class="slide"><img src="5.jpg" alt="Scroll 2" /></div>
+          <div class="slide"><img src="6.jpg" alt="Scroll 3" /></div>
+          <div class="slide"><img src="7.jpg" alt="Scroll 4" /></div>
+          <!-- Repeat for seamless scroll -->
+          <div class="slide"><img src="4.jpg" alt="Scroll 1 repeat" /></div>
+          <div class="slide"><img src="5.jpg" alt="Scroll 2 repeat" /></div>
+          <div class="slide"><img src="6.jpg" alt="Scroll 3 repeat" /></div>
+          <div class="slide"><img src="7.jpg" alt="Scroll 4 repeat" /></div>
+        </div>
+      </section>
+
+      <div class="message">
+        <h2>Our Beautiful Journey 💍</h2>
+        <p>
+          From the moment our paths crossed, life has been an enchanting adventure. Each day with you is a cherished memory,
+          and every year deepens our bond. Here's to the countless moments that have made our love story extraordinary.
+        </p>
+      </div>
+
+      <section class="timeline">
+        <h2>Our Love Timeline</h2>
+        <ul>
+          <li><strong>First Met:</strong> June 12, 2019</li>
+          <li><strong>First Trip:</strong> Ooty, 2020</li>
+          <li><strong>Engaged:</strong> Feb 14, 2022</li>
+          <li><strong>Married:</strong> May 20, 2023</li>
+        </ul>
+      </section>
+
+      <section class="quotes">
+        <h2>Love Notes 💌</h2>
+        <div id="quoteBox">"In all the world, there is no heart for me like yours." – Maya Angelou</div>
+      </section>
+
+      <footer>
+        Made with 💗 by You. Customize this page with your memories and love.
+      </footer>
+    </div>
+
+    <audio id="bgMusic" autoplay loop>
       <source src="music.mp3" type="audio/mpeg" />
+      Your browser does not support the audio tag.
     </audio>
 
-    <!-- Romantic Heading -->
-    <h1 class="anniversary-title">Happy Wedding Anniversary ❤️</h1>
-    <p class="anniversary-subtitle">Together Forever, Hand in Hand</p>
-
-    <!-- Blush Animation -->
-    <div class="blush-heart">💓</div>
-
-    <!-- Love Notes -->
-    <div class="love-notes">
-      <p id="note">Love is in the air...</p>
-    </div>
-
-    <!-- 3 Main Images -->
-    <div class="main-images">
-      <img src="1.jpg" class="img-small" alt="Small" />
-      <img src="2.jpg" class="img-medium" alt="Medium" />
-      <img src="3.jpg" class="img-large" alt="Large" />
-    </div>
-
-    <!-- Scrolling Image Slider -->
-    <section class="slider" aria-label="Scrolling photos">
-      <div class="slide-track">
-        <div class="slide"><img src="4.jpg" alt="1" /></div>
-        <div class="slide"><img src="5.jpg" alt="2" /></div>
-        <div class="slide"><img src="6.jpg" alt="3" /></div>
-        <div class="slide"><img src="7.jpg" alt="4" /></div>
-        <div class="slide"><img src="4.jpg" alt="1r" /></div>
-        <div class="slide"><img src="5.jpg" alt="2r" /></div>
-        <div class="slide"><img src="6.jpg" alt="3r" /></div>
-        <div class="slide"><img src="7.jpg" alt="4r" /></div>
-      </div>
-    </section>
-
-    <!-- Voice Wish -->
-    <div class="voice-wish">
-      <div class="voice-icon" onclick="toggleVoiceButtons()">🔊</div>
-      <div class="voice-buttons hidden">
-        <button onclick="playVoice('male')">Male Voice</button>
-        <button onclick="playVoice('female')">Female Voice</button>
-      </div>
-    </div>
+    <div class="music-toggle" onclick="toggleMusic()" aria-label="Toggle background music" role="button" tabindex="0">🎵</div>
+    <div class="hearts-container"></div>
   </div>
 
-  <script src="script.js"></script>
 </body>
 </html>

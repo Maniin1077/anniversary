@@ -1,83 +1,24 @@
-// Intro and Countdown
-function startCountdown() {
-  document.getElementById('intro-overlay').style.display = 'none';
-  document.getElementById('countdown-overlay').classList.remove('hidden');
+// Countdown logic
+const countdownOverlay = document.getElementById('countdown-overlay');
+const countdownEl = document.getElementById('countdown');
+const mainContent = document.getElementById('main-content');
 
-  let count = 3;
-  const countdownEl = document.getElementById('countdown');
-  const interval = setInterval(() => {
-    if (count > 1) {
-      count--;
-      countdownEl.textContent = count;
-    } else {
-      clearInterval(interval);
-      document.getElementById('countdown-overlay').style.display = 'none';
-      document.getElementById('main-content').classList.remove('hidden');
-      startHeartShower(2000);  // heart shower for 2s
-      startFloatingHearts();   // continue floating hearts
-      rotateLoveNotes();       // start rotating love notes
-    }
-  }, 1000);
+let count = 3;
+
+function countdown() {
+  if (count > 1) {
+    count--;
+    countdownEl.textContent = count;
+  } else {
+    // Remove countdown and show main content
+    countdownOverlay.style.display = 'none';
+    mainContent.classList.remove('hidden');
+    startHeartShower(2000); // Heart shower for 2 seconds
+    startFloatingHearts();
+  }
 }
 
-// Heart Shower
-const heartShowerContainer = document.getElementById('heart-shower');
-function createHeart() {
-  const heart = document.createElement('div');
-  heart.classList.add('heart');
-  heart.textContent = '💖';
-  heart.style.position = 'fixed';
-  heart.style.left = Math.random() * window.innerWidth + 'px';
-  heart.style.top = Math.random() * window.innerHeight + 'px';
-  heart.style.fontSize = (10 + Math.random() * 20) + 'px';
-  heart.style.opacity = 1;
-  heart.style.pointerEvents = 'none';
-  heart.style.zIndex = 9999;
-  heart.style.transition = 'all 1.5s ease-out';
-
-  heartShowerContainer.appendChild(heart);
-  setTimeout(() => {
-    heart.style.top = (parseFloat(heart.style.top) - 100) + 'px';
-    heart.style.opacity = 0;
-  }, 10);
-  setTimeout(() => {
-    heart.remove();
-  }, 1600);
-}
-
-function startHeartShower(duration = 2000) {
-  const interval = setInterval(createHeart, 150);
-  setTimeout(() => clearInterval(interval), duration);
-}
-
-// Floating Hearts
-const heartsContainer = document.querySelector('.hearts-container');
-function createFloatingHeart() {
-  const heart = document.createElement('div');
-  heart.textContent = '❤️';
-  heart.style.position = 'fixed';
-  heart.style.left = Math.random() * window.innerWidth + 'px';
-  heart.style.bottom = '-30px';
-  heart.style.fontSize = (12 + Math.random() * 18) + 'px';
-  heart.style.opacity = 0.6 + Math.random() * 0.4;
-  heart.style.pointerEvents = 'none';
-  heart.style.color = '#d81e5b';
-  heart.style.zIndex = 0;
-  heart.style.transition = 'transform 10s linear, opacity 10s linear';
-  heartsContainer.appendChild(heart);
-
-  setTimeout(() => {
-    heart.style.transform = `translateY(-${window.innerHeight + 50}px)`;
-    heart.style.opacity = 0;
-  }, 50);
-  setTimeout(() => {
-    heart.remove();
-  }, 10500);
-}
-
-function startFloatingHearts() {
-  setInterval(createFloatingHeart, 400);
-}
+setInterval(countdown, 1000);
 
 // Background Music Toggle
 const bgMusic = document.getElementById('bgMusic');
@@ -93,61 +34,68 @@ function toggleMusic() {
   }
 }
 
-// Voice AI (Male/Female)
-window.speechSynthesis.onvoiceschanged = () => {
-  window.speechSynthesis.getVoices(); // preload
-};
+// Heart Shower Animation
+const heartShowerContainer = document.getElementById('heart-shower');
 
-function playVoice(type) {
-  const synth = window.speechSynthesis;
-  const voices = synth.getVoices();
-  let selectedVoice;
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.textContent = '💖';
 
-  if (type === 'male') {
-    selectedVoice = voices.find(voice =>
-      voice.name.toLowerCase().includes('male') ||
-      voice.name.toLowerCase().includes('david') ||
-      voice.gender === 'male'
-    );
-  } else {
-    selectedVoice = voices.find(voice =>
-      voice.name.toLowerCase().includes('female') ||
-      voice.name.toLowerCase().includes('zira') ||
-      voice.gender === 'female'
-    );
-  }
+  heart.style.position = 'fixed';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.top = Math.random() * window.innerHeight + 'px';
+  heart.style.fontSize = (10 + Math.random() * 20) + 'px';
+  heart.style.opacity = 1;
+  heart.style.pointerEvents = 'none';
+  heart.style.zIndex = 9999;
+  heart.style.transition = 'all 1.5s ease-out';
 
-  if (!selectedVoice) selectedVoice = voices[0];
+  heartShowerContainer.appendChild(heart);
 
-  const message = `
-    Happy Wedding Anniversary. Together Forever, Hand in Hand.
-    You complete me. Forever is just the beginning. Together, always and forever.
-  `;
+  setTimeout(() => {
+    heart.style.top = (parseFloat(heart.style.top) - 100) + 'px';
+    heart.style.opacity = 0;
+  }, 10);
 
-  const utterance = new SpeechSynthesisUtterance(message);
-  utterance.voice = selectedVoice;
-  utterance.pitch = 1;
-  utterance.rate = 1;
-  synth.cancel(); // stop any current speech
-  synth.speak(utterance);
+  setTimeout(() => {
+    heart.remove();
+  }, 1600);
 }
 
-// Love Notes Rotate
-const notes = [
-  "You are my today and all of my tomorrows.",
-  "Every love story is beautiful, but ours is my favorite.",
-  "Forever is a long time, but I wouldn't mind spending it with you.",
-];
-let noteIndex = 0;
-function rotateLoveNotes() {
-  const noteEl = document.getElementById("note");
-  setInterval(() => {
-    noteEl.textContent = notes[noteIndex];
-    noteIndex = (noteIndex + 1) % notes.length;
-  }, 3000);
+function startHeartShower(duration = 2000) {
+  const interval = setInterval(createHeart, 150);
+  setTimeout(() => clearInterval(interval), duration);
 }
 
-// Voice toggle button
-function toggleVoiceButtons() {
-  document.querySelector('.voice-buttons').classList.toggle('hidden');
+// Floating Hearts Background
+const heartsContainer = document.querySelector('.hearts-container');
+
+function createFloatingHeart() {
+  const heart = document.createElement('div');
+  heart.textContent = '❤️';
+  heart.style.position = 'fixed';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.bottom = '-30px';
+  heart.style.fontSize = (12 + Math.random() * 18) + 'px';
+  heart.style.opacity = 0.6 + Math.random() * 0.4;
+  heart.style.pointerEvents = 'none';
+  heart.style.color = '#d81e5b';
+  heart.style.zIndex = 0;
+  heart.style.transition = 'transform 10s linear, opacity 10s linear';
+
+  heartsContainer.appendChild(heart);
+
+  setTimeout(() => {
+    heart.style.transform = `translateY(-${window.innerHeight + 50}px)`;
+    heart.style.opacity = 0;
+  }, 50);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 10500);
+}
+
+function startFloatingHearts() {
+  setInterval(createFloatingHeart, 400);
 }
