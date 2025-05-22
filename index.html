@@ -2,37 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Anniversary</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Anniversary 💖</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <div class="container">
-    <h1>Happy Anniversary, My Love ❤️</h1>
-    <p class="intro">Today we celebrate another year of love, memories, and happiness together.</p>
 
-    <div class="slideshow">
-      <img src="images/1.jpg" class="slide" />
-      <img src="images/2.jpg" class="slide" />
-
-      <!-- Add more images as needed -->
-    </div>
-
-    <div class="message">
-      <h2>Our Journey 💍</h2>
-      <p>
-        From the day we met, you’ve filled my life with love and joy. Every moment with you is a treasure,
-        and every year makes our bond stronger. Happy Anniversary, forever and always.
-      </p>
-    </div>
-
-    <footer>With love, [Your Name] 💖</footer>
-  </div>
-
-  <audio autoplay loop>
-    <source src="music/background.mp3" type="audio/mpeg">
-    Your browser does not support the audio tag.
+  <audio id="bgMusic" loop autoplay>
+    <source src="music.mp3" type="audio/mp3" />
   </audio>
+
+  <div class="music-toggle" onclick="toggleMusic()">🎵</div>
+
+  <header class="hero">
+    <h1>Happy Anniversary 💖</h1>
+    <p>Celebrating love, laughter, and a lifetime of memories together.</p>
+  </header>
+
+  <section class="slider">
+    <div class="slide-track">
+      <div class="slide"><img src="1.jpg" alt="Memory 1" /></div>
+      <div class="slide"><img src="2.jpg" alt="Memory 2" /></div>
+      <div class="slide"><img src="3.jpg" alt="Memory 3" /></div>
+      <div class="slide"><img src="1.jpg" alt="Memory 1" /></div> <!-- Repeat to loop smoothly -->
+      <div class="slide"><img src="2.jpg" alt="Memory 2" /></div>
+      <div class="slide"><img src="3.jpg" alt="Memory 3" /></div>
+    </div>
+  </section>
+
+  <section class="timeline">
+    <h2>Our Love Story</h2>
+    <ul>
+      <li><strong>First Met:</strong> June 12, 2019</li>
+      <li><strong>First Trip:</strong> Ooty, 2020</li>
+      <li><strong>Engaged:</strong> Feb 14, 2022</li>
+      <li><strong>Married:</strong> May 20, 2023</li>
+    </ul>
+  </section>
+
+  <section class="quotes">
+    <h2>Love Notes 💌</h2>
+    <div id="quoteBox">"You are my today and all of my tomorrows."</div>
+  </section>
+
+  <footer>
+    Made with 💗 by You. Customize this page with your memories and love.
+  </footer>
 
   <script src="script.js"></script>
 </body>
