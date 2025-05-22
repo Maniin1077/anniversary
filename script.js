@@ -25,3 +25,43 @@ function toggleMusic() {
   if (music.paused) music.play();
   else music.pause();
 }
+
+// Countdown Logic
+window.addEventListener("load", () => {
+  const countdown = document.createElement("div");
+  countdown.className = "countdown";
+  document.body.appendChild(countdown);
+
+  let count = 3;
+  countdown.innerText = count;
+
+  const interval = setInterval(() => {
+    count--;
+    if (count > 0) {
+      countdown.innerText = count;
+    } else {
+      clearInterval(interval);
+      document.body.removeChild(countdown);
+      triggerHeartShower();
+    }
+  }, 1000);
+});
+
+function triggerHeartShower() {
+  const container = document.createElement("div");
+  container.className = "heart-shower";
+
+  for (let i = 0; i < 50; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (1 + Math.random()) + "s";
+    container.appendChild(heart);
+  }
+
+  document.body.appendChild(container);
+
+  setTimeout(() => {
+    document.body.removeChild(container);
+  }, 2000);
+}
