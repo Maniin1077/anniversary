@@ -1,28 +1,38 @@
-// Countdown logic
+// DOM Elements
 const countdownOverlay = document.getElementById('countdown-overlay');
 const countdownEl = document.getElementById('countdown');
 const mainContent = document.getElementById('main-content');
+const giftButton = document.getElementById('gift-button');
+const musicToggle = document.querySelector('.music-toggle');
+const bgMusic = document.getElementById('bgMusic');
+const heartShowerContainer = document.getElementById('heart-shower');
+const heartsContainer = document.querySelector('.hearts-container');
+const voiceButtons = document.querySelector('.voice-buttons');
 
 let count = 3;
+let countdownInterval;
 
-function countdown() {
-  if (count > 1) {
-    count--;
-    countdownEl.textContent = count;
-  } else {
-    countdownOverlay.style.display = 'none';
-    mainContent.classList.remove('hidden');
-    startHeartShower(2000); // Heart shower for 2 seconds
-    startFloatingHearts();
-  }
+// 🎁 Start Countdown
+function startCountdown() {
+  document.getElementById('intro-overlay').style.display = 'none';
+  countdownOverlay.classList.remove('hidden');
+  countdownEl.textContent = count;
+
+  countdownInterval = setInterval(() => {
+    if (count > 1) {
+      count--;
+      countdownEl.textContent = count;
+    } else {
+      clearInterval(countdownInterval);
+      countdownOverlay.style.display = 'none';
+      mainContent.classList.remove('hidden');
+      startHeartShower(2000); // Show hearts for 2 seconds
+      startFloatingHearts();
+    }
+  }, 1000);
 }
 
-setInterval(countdown, 1000);
-
-// Background Music Toggle
-const bgMusic = document.getElementById('bgMusic');
-const musicToggle = document.querySelector('.music-toggle');
-
+// 🎵 Toggle Music
 function toggleMusic() {
   if (bgMusic.paused) {
     bgMusic.play();
@@ -33,14 +43,11 @@ function toggleMusic() {
   }
 }
 
-// Heart Shower Animation
-const heartShowerContainer = document.getElementById('heart-shower');
-
+// 💖 Heart Shower Animation
 function createHeart() {
   const heart = document.createElement('div');
   heart.classList.add('heart');
   heart.textContent = '💖';
-
   heart.style.position = 'fixed';
   heart.style.left = Math.random() * window.innerWidth + 'px';
   heart.style.top = Math.random() * window.innerHeight + 'px';
@@ -67,9 +74,7 @@ function startHeartShower(duration = 2000) {
   setTimeout(() => clearInterval(interval), duration);
 }
 
-// Floating Hearts Background
-const heartsContainer = document.querySelector('.hearts-container');
-
+// ❤️ Floating Heart Background
 function createFloatingHeart() {
   const heart = document.createElement('div');
   heart.textContent = '❤️';
@@ -99,16 +104,20 @@ function startFloatingHearts() {
   setInterval(createFloatingHeart, 400);
 }
 
-// AI Voice Playback using SpeechSynthesis API
+// 🔊 Toggle Voice Buttons
+function toggleVoiceButtons() {
+  voiceButtons.classList.toggle('hidden');
+}
+
+// 🗣️ AI Voice Playback (Speech Synthesis)
 window.speechSynthesis.onvoiceschanged = () => {
-  window.speechSynthesis.getVoices(); // Load available voices
+  window.speechSynthesis.getVoices(); // Ensure voices are loaded
 };
 
 function playVoice(type) {
   const synth = window.speechSynthesis;
   const voices = synth.getVoices();
 
-  // Find male or female voice
   let selectedVoice;
   if (type === 'male') {
     selectedVoice = voices.find(voice =>
@@ -124,7 +133,6 @@ function playVoice(type) {
     );
   }
 
-  // Fallback voice
   if (!selectedVoice) selectedVoice = voices[0];
 
   const message = `
@@ -137,6 +145,9 @@ function playVoice(type) {
   utterance.pitch = 1;
   utterance.rate = 1;
 
-  synth.cancel(); // Stop current speech
+  synth.cancel();
   synth.speak(utterance);
 }
+
+// 🧠 Connect Gift Icon to Countdown
+giftButton.addEventListener('click', startCountdown);
