@@ -2,99 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Forever Yours 💖</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
-  <script defer src="script.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wedding Anniversary Website</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-  <!-- Countdown Overlay -->
-  <div id="countdown-overlay">
-    <div id="countdown">3</div>
+  <!-- Intro Screen -->
+  <div id="intro-screen" class="overlay">
+    <div class="intro-content">
+      <p>Are you feeling excited? Open the gift...</p>
+      <button id="open-gift-btn" class="heart-btn">❤️ Open Gift</button>
+    </div>
   </div>
 
-  <!-- Heart Shower Animation Container -->
-  <div id="heart-shower"></div>
+  <!-- Main Container -->
+  <div id="main-content" style="display:none;">
 
-  <!-- Main Content Wrapper - Initially Hidden -->
-  <div id="main-content" class="hidden">
-    <div class="container">
-      <header class="hero">
-        <h1>Forever Yours: Celebrating Our Love Story 💖</h1>
-        <p>Every heartbeat, every smile, every moment with you is a precious memory. Happy Anniversary!</p>
-      </header>
+    <!-- Countdown -->
+    <div id="countdown" class="countdown-animation"></div>
 
-      <!-- Left & Right Vertical Decorative Lines -->
-      <div class="vertical-line left-line"></div>
-      <div class="vertical-line right-line"></div>
+    <!-- Heart blush animation -->
+    <div id="heart-blush" class="heart-blush-animation" style="display:none;">❤️</div>
 
-      <!-- Decorative Blubs -->
-      <div class="blubs">
-        <div class="blub long"></div>
-        <div class="blub medium"></div>
-        <div class="blub short"></div>
-      </div>
-
-      <!-- Slideshow with Small, Medium, Large Images -->
-      <div class="slideshow">
-        <img src="1.jpg" alt="Small photo" class="small shine" />
-        <img src="2.jpg" alt="Medium photo" class="medium shine" />
-        <img src="3.jpg" alt="Large photo" class="large shine" />
-      </div>
-
-      <!-- Scrolling Section with 4 Different Images -->
-      <section class="slider" aria-label="Scrolling photos">
-        <div class="slide-track">
-          <div class="slide"><img src="4.jpg" alt="Scroll 1" /></div>
-          <div class="slide"><img src="5.jpg" alt="Scroll 2" /></div>
-          <div class="slide"><img src="6.jpg" alt="Scroll 3" /></div>
-          <div class="slide"><img src="7.jpg" alt="Scroll 4" /></div>
-          <!-- Repeat for seamless scroll -->
-          <div class="slide"><img src="4.jpg" alt="Scroll 1 repeat" /></div>
-          <div class="slide"><img src="5.jpg" alt="Scroll 2 repeat" /></div>
-          <div class="slide"><img src="6.jpg" alt="Scroll 3 repeat" /></div>
-          <div class="slide"><img src="7.jpg" alt="Scroll 4 repeat" /></div>
-        </div>
-      </section>
-
-      <div class="message">
-        <h2>Our Beautiful Journey 💍</h2>
-        <p>
-          From the moment our paths crossed, life has been an enchanting adventure. Each day with you is a cherished memory,
-          and every year deepens our bond. Here's to the countless moments that have made our love story extraordinary.
-        </p>
-      </div>
-
-      <section class="timeline">
-        <h2>Our Love Timeline</h2>
-        <ul>
-          <li><strong>First Met:</strong> June 12, 2019</li>
-          <li><strong>First Trip:</strong> Ooty, 2020</li>
-          <li><strong>Engaged:</strong> Feb 14, 2022</li>
-          <li><strong>Married:</strong> May 20, 2023</li>
-        </ul>
-      </section>
-
-      <section class="quotes">
-        <h2>Love Notes 💌</h2>
-        <div id="quoteBox">"In all the world, there is no heart for me like yours." – Maya Angelou</div>
-      </section>
-
-      <footer>
-        Made with 💗 by You. Customize this page with your memories and love.
-      </footer>
+    <!-- Wish Message -->
+    <div id="wish-message" class="wish-message" style="display:none;">
+      <h1>Happy Wedding Anniversary!</h1>
+      <h3 class="subtitle">Wishing you a lifetime of love and happiness.</h3>
     </div>
 
-    <audio id="bgMusic" autoplay loop>
-      <source src="music.mp3" type="audio/mpeg" />
-      Your browser does not support the audio tag.
+    <!-- Love Invitation Box -->
+    <div class="love-invitation-box">
+      <p class="centered-text">
+        Join us to celebrate this special day full of love and memories.
+      </p>
+    </div>
+
+    <!-- Slideshow with 3 images: small, medium, large -->
+    <div class="slideshow">
+      <img src="images/small1.jpg" alt="Small Image" class="slide small" />
+      <img src="images/medium1.jpg" alt="Medium Image" class="slide medium" />
+      <img src="images/large1.jpg" alt="Large Image" class="slide large" />
+    </div>
+
+    <!-- Continuous scrolling images -->
+    <div class="scrolling-images">
+      <img src="images/scroll1.jpg" alt="Scroll 1" class="scroll-img" />
+      <img src="images/scroll2.jpg" alt="Scroll 2" class="scroll-img" />
+      <img src="images/scroll3.jpg" alt="Scroll 3" class="scroll-img" />
+      <img src="images/scroll4.jpg" alt="Scroll 4" class="scroll-img" />
+    </div>
+
+    <!-- Love notes cycling -->
+    <div id="love-notes" class="love-notes"></div>
+
+    <!-- Voice icon and buttons -->
+    <div class="voice-control">
+      <button id="voice-icon">🔊 Voice</button>
+      <div id="voice-buttons" style="display:none;">
+        <button id="male-voice-btn">Male Voice</button>
+        <button id="female-voice-btn">Female Voice</button>
+      </div>
+    </div>
+
+    <!-- Music controls -->
+    <audio id="background-music" controls loop>
+      <source src="music/song.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
     </audio>
 
-    <div class="music-toggle" onclick="toggleMusic()" aria-label="Toggle background music" role="button" tabindex="0">🎵</div>
-    <div class="hearts-container"></div>
   </div>
 
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Our Wedding Anniversary. Made with ❤️ by Us.</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

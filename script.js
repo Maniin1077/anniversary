@@ -1,101 +1,121 @@
-// Countdown logic
-const countdownOverlay = document.getElementById('countdown-overlay');
+// Selectors
+const overlay = document.getElementById('overlay');
 const countdownEl = document.getElementById('countdown');
-const mainContent = document.getElementById('main-content');
+const heartBlushEl = document.getElementById('heart-blush');
+const wishMessage = document.getElementById('wish-message');
+const loveNotesEl = document.getElementById('love-notes');
+const voiceIcon = document.getElementById('voice-icon');
+const voiceButtons = document.getElementById('voice-buttons');
+const btnMaleVoice = document.getElementById('btn-male-voice');
+const btnFemaleVoice = document.getElementById('btn-female-voice');
+const scrollingImages = document.querySelector('.scrolling-images');
+const audioPlayer = document.getElementById('background-music');
 
-let count = 3;
+// Love notes array
+const loveNotes = [
+  "You are my sunshine on rainy days.",
+  "Every moment with you is a treasure.",
+  "Together, forever and always."
+];
+let currentNoteIndex = 0;
 
-function countdown() {
-  if (count > 1) {
+// Show love notes one by one every 3 seconds
+function cycleLoveNotes() {
+  loveNotesEl.textContent = loveNotes[currentNoteIndex];
+  currentNoteIndex = (currentNoteIndex + 1) % loveNotes.length;
+}
+let loveNotesInterval;
+
+// Countdown from 3 to 1
+function startCountdown() {
+  let count = 3;
+  countdownEl.textContent = count;
+  countdownEl.style.display = 'block';
+
+  const interval = setInterval(() => {
     count--;
-    countdownEl.textContent = count;
+    if (count > 0) {
+      countdownEl.textContent = count;
+    } else {
+      clearInterval(interval);
+      countdownEl.style.display = 'none';
+      showHeartBlush();
+    }
+  }, 1000);
+}
+
+// Heart blush animation for 1.5 seconds then show wish message
+function showHeartBlush() {
+  heartBlushEl.style.display = 'block';
+  heartBlushEl.classList.add('heart-blush-animation');
+
+  setTimeout(() => {
+    heartBlushEl.style.display = 'none';
+    wishMessage.style.display = 'block';
+    startLoveNotesCycle();
+    voiceIcon.style.display = 'inline-block';
+    // Start background music automatically (optional)
+    audioPlayer.play();
+  }, 1500);
+}
+
+// Start cycling love notes
+function startLoveNotesCycle() {
+  loveNotesInterval = setInterval(cycleLoveNotes, 3000);
+  cycleLoveNotes(); // show immediately
+}
+
+// Voice control toggle buttons display
+voiceIcon.addEventListener('click', () => {
+  if (voiceButtons.style.display === 'block') {
+    voiceButtons.style.display = 'none';
   } else {
-    // Remove countdown and show main content
-    countdownOverlay.style.display = 'none';
-    mainContent.classList.remove('hidden');
-    startHeartShower(2000); // Heart shower for 2 seconds
-    startFloatingHearts();
+    voiceButtons.style.display = 'block';
   }
-}
+});
 
-setInterval(countdown, 1000);
-
-// Background Music Toggle
-const bgMusic = document.getElementById('bgMusic');
-const musicToggle = document.querySelector('.music-toggle');
-
-function toggleMusic() {
-  if (bgMusic.paused) {
-    bgMusic.play();
-    musicToggle.style.color = '#d81e5b';
-  } else {
-    bgMusic.pause();
-    musicToggle.style.color = '#aaa';
+// Speech synthesis function
+function speak(text, voiceName) {
+  if (!('speechSynthesis' in window)) {
+    alert('Sorry, your browser does not support speech synthesis.');
+    return;
   }
+  window.speechSynthesis.cancel(); // Cancel any ongoing speech
+  const utterance = new SpeechSynthesisUtterance(text);
+  const voices = window.speechSynthesis.getVoices();
+
+  // Choose voice by name (case insensitive)
+  const selectedVoice = voices.find(v => v.name.toLowerCase().includes(voiceName.toLowerCase()));
+  if (selectedVoice) {
+    utterance.voice = selectedVoice;
+  }
+  utterance.rate = 1;
+  utterance.pitch = 1;
+  window.speechSynthesis.speak(utterance);
 }
 
-// Heart Shower Animation
-const heartShowerContainer = document.getElementById('heart-shower');
+// Button events for male/female voice
+btnMaleVoice.addEventListener('click', () => {
+  speak(
+    "Happy Wedding Anniversary, my love! You mean the world to me.",
+    "male"
+  );
+});
 
-function createHeart() {
-  const heart = document.createElement('div');
-  heart.classList.add('heart');
-  heart.textContent = '💖';
+btnFemaleVoice.addEventListener('click', () => {
+  speak(
+    "Happy Wedding Anniversary, darling! Forever yours, forever mine.",
+    "female"
+  );
+});
 
-  heart.style.position = 'fixed';
-  heart.style.left = Math.random() * window.innerWidth + 'px';
-  heart.style.top = Math.random() * window.innerHeight + 'px';
-  heart.style.fontSize = (10 + Math.random() * 20) + 'px';
-  heart.style.opacity = 1;
-  heart.style.pointerEvents = 'none';
-  heart.style.zIndex = 9999;
-  heart.style.transition = 'all 1.5s ease-out';
+// Smooth infinite scroll reset for scrolling images
+scrollingImages.addEventListener('animationiteration', () => {
+  // Optional: can add logic if needed on loop reset
+});
 
-  heartShowerContainer.appendChild(heart);
-
-  setTimeout(() => {
-    heart.style.top = (parseFloat(heart.style.top) - 100) + 'px';
-    heart.style.opacity = 0;
-  }, 10);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 1600);
-}
-
-function startHeartShower(duration = 2000) {
-  const interval = setInterval(createHeart, 150);
-  setTimeout(() => clearInterval(interval), duration);
-}
-
-// Floating Hearts Background
-const heartsContainer = document.querySelector('.hearts-container');
-
-function createFloatingHeart() {
-  const heart = document.createElement('div');
-  heart.textContent = '❤️';
-  heart.style.position = 'fixed';
-  heart.style.left = Math.random() * window.innerWidth + 'px';
-  heart.style.bottom = '-30px';
-  heart.style.fontSize = (12 + Math.random() * 18) + 'px';
-  heart.style.opacity = 0.6 + Math.random() * 0.4;
-  heart.style.pointerEvents = 'none';
-  heart.style.color = '#d81e5b';
-  heart.style.zIndex = 0;
-  heart.style.transition = 'transform 10s linear, opacity 10s linear';
-
-  heartsContainer.appendChild(heart);
-
-  setTimeout(() => {
-    heart.style.transform = `translateY(-${window.innerHeight + 50}px)`;
-    heart.style.opacity = 0;
-  }, 50);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 10500);
-}
-
-function startFloatingHearts() {
-  setInterval(createFloatingHeart, 400);
-}
+// Intro screen start: on clicking heart, hide overlay & start countdown
+document.querySelector('.heart-btn').addEventListener('click', () => {
+  overlay.style.display = 'none';
+  startCountdown();
+});
