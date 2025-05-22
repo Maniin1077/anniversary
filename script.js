@@ -26,11 +26,10 @@ function toggleMusic() {
   else music.pause();
 }
 
-// Countdown Logic
+// Countdown Logic (Improved)
 window.addEventListener("load", () => {
-  const countdown = document.createElement("div");
-  countdown.className = "countdown";
-  document.body.appendChild(countdown);
+  const countdownOverlay = document.getElementById("countdown-overlay");
+  const countdown = document.getElementById("countdown");
 
   let count = 3;
   countdown.innerText = count;
@@ -41,16 +40,20 @@ window.addEventListener("load", () => {
       countdown.innerText = count;
     } else {
       clearInterval(interval);
-      document.body.removeChild(countdown);
-      triggerHeartShower();
+      // Hide countdown overlay smoothly
+      countdownOverlay.style.opacity = 0;
+      setTimeout(() => {
+        countdownOverlay.style.display = "none";
+        triggerHeartShower();
+      }, 500); // match fade out duration
     }
   }, 1000);
 });
 
 function triggerHeartShower() {
-  const container = document.createElement("div");
-  container.className = "heart-shower";
+  const container = document.getElementById("heart-shower");
 
+  // Create hearts
   for (let i = 0; i < 50; i++) {
     const heart = document.createElement("div");
     heart.className = "heart";
@@ -59,9 +62,13 @@ function triggerHeartShower() {
     container.appendChild(heart);
   }
 
-  document.body.appendChild(container);
+  // Show heart shower container
+  container.style.display = "block";
 
+  // Hide heart shower and show main content after 2 seconds
   setTimeout(() => {
-    document.body.removeChild(container);
+    container.style.display = "none";
+    container.innerHTML = ""; // Clear hearts
+    document.getElementById("main-content").classList.remove("hidden");
   }, 2000);
 }
