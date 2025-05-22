@@ -3,38 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Forever & Always — Happy Anniversary 💖</title>
+  <title>Forever Yours 💖</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-
-  <!-- Heart Shower Container -->
-  <div class="heart-shower"></div>
-
   <div class="container">
     <header class="hero">
-      <h1>Forever & Always, My Love 💖</h1>
-      <p>Each day with you is a beautiful chapter of our endless love story.</p>
+      <h1>Forever Yours: Celebrating Our Love Story 💖</h1>
+      <p>Every heartbeat, every smile, every moment with you is a precious memory. Happy Anniversary!</p>
     </header>
 
-    <section class="slideshow">
-      <img src="1.jpg" alt="Memory 1" />
-      <img src="2.jpg" alt="Memory 2" />
-      <img src="3.jpg" alt="Memory 3" />
+    <div class="slideshow">
+      <img src="1.jpg" />
+      <img src="2.jpg" />
+      <img src="3.jpg" />
+    </div>
+
+    <section class="slider">
+      <div class="slide-track">
+        <div class="slide"><img src="1.jpg" alt="Memory 1" /></div>
+        <div class="slide"><img src="2.jpg" alt="Memory 2" /></div>
+        <div class="slide"><img src="3.jpg" alt="Memory 3" /></div>
+        <div class="slide"><img src="1.jpg" alt="Memory 1" /></div>
+        <div class="slide"><img src="2.jpg" alt="Memory 2" /></div>
+        <div class="slide"><img src="3.jpg" alt="Memory 3" /></div>
+      </div>
     </section>
 
-    <section class="message">
-      <h2>Our Beautiful Journey Together 💍</h2>
+    <div class="message">
+      <h2>Our Beautiful Journey 💍</h2>
       <p>
-        From our first smile to our latest embrace, every moment with you has woven
-        a tapestry of love, trust, and endless happiness. Here’s to many more memories, forever intertwined.
+        From the moment our paths crossed, life has been an enchanting adventure. Each day with you is a cherished memory,
+        and every year deepens our bond. Here's to the countless moments that have made our love story extraordinary.
       </p>
+    </div>
+
+    <section class="timeline">
+      <h2>Our Love Timeline</h2>
+      <ul>
+        <li><strong>First Met:</strong> June 12, 2019</li>
+        <li><strong>First Trip:</strong> Ooty, 2020</li>
+        <li><strong>Engaged:</strong> Feb 14, 2022</li>
+        <li><strong>Married:</strong> May 20, 2023</li>
+      </ul>
     </section>
 
     <section class="quotes">
       <h2>Love Notes 💌</h2>
-      <div id="quoteBox">"You are my today and all of my tomorrows."</div>
+      <div id="quoteBox">"In all the world, there is no heart for me like yours." – Maya Angelou</div>
     </section>
 
     <footer>
@@ -43,11 +60,12 @@
   </div>
 
   <audio id="bgMusic" autoplay loop>
-    <source src="music/background.mp3" type="audio/mpeg" />
+    <source src="music.mp3" type="audio/mpeg">
     Your browser does not support the audio tag.
   </audio>
 
-  <div class="music-toggle" onclick="toggleMusic()" title="Toggle Music">🎵</div>
+  <div class="music-toggle" onclick="toggleMusic()">🎵</div>
+  <div class="hearts-container"></div>
 
   <script src="script.js"></script>
 </body>
