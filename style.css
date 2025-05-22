@@ -3,15 +3,14 @@
   margin: 0; padding: 0; box-sizing: border-box;
 }
 
-/* Body + background */
 body {
   font-family: 'Quicksand', sans-serif;
   background: linear-gradient(to bottom right, #fff0f5, #ffe4e1);
   color: #444;
   overflow-x: hidden;
+  position: relative;
 }
 
-/* Header hero section */
 .hero {
   text-align: center;
   padding: 100px 20px 50px;
@@ -20,19 +19,20 @@ body {
 
 .hero h1 {
   font-family: 'Great Vibes', cursive;
-  font-size: 4rem;
+  font-size: 3.5rem;
   color: #d63384;
   margin-bottom: 15px;
   animation: fadeInDown 2s ease forwards;
 }
 
 .hero p {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #6c757d;
   animation: fadeInUp 2s ease forwards;
+  max-width: 700px;
+  margin: auto;
 }
 
-/* Slider styles */
 .slider {
   width: 90%;
   margin: 40px auto;
@@ -68,7 +68,6 @@ body {
   transform: scale(1.05);
 }
 
-/* Timeline */
 .timeline {
   background: #fff0f6;
   padding: 50px 20px;
@@ -91,11 +90,6 @@ body {
   line-height: 2.2;
 }
 
-.timeline li {
-  margin-bottom: 15px;
-}
-
-/* Quotes section */
 .quotes {
   background: #fff;
   text-align: center;
@@ -118,7 +112,6 @@ body {
   transition: opacity 0.8s ease;
 }
 
-/* Footer */
 footer {
   padding: 30px;
   font-size: 1.1rem;
@@ -128,7 +121,6 @@ footer {
   margin-top: 50px;
 }
 
-/* Music toggle button */
 .music-toggle {
   position: fixed;
   top: 20px;
@@ -141,13 +133,13 @@ footer {
   cursor: pointer;
   user-select: none;
   transition: background-color 0.3s ease;
+  z-index: 1000;
 }
 
 .music-toggle:hover {
   background-color: #f8d7da;
 }
 
-/* Animations */
 @keyframes scroll {
   0% {transform: translateX(0);}
   100% {transform: translateX(calc(-300px * 3));}
@@ -161,4 +153,24 @@ footer {
 @keyframes fadeInUp {
   0% {opacity: 0; transform: translateY(40px);}
   100% {opacity: 1; transform: translateY(0);}
+}
+
+/* Hearts Animation */
+.hearts-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: url('https://cdn.pixabay.com/photo/2017/01/31/19/13/valentine-2029420_960_720.png') repeat;
+  opacity: 0.1;
+  animation: hearts-fall 10s linear infinite;
+  z-index: 0;
+}
+
+@keyframes hearts-fall {
+  0% {background-position: 0 -1000px;}
+  100% {background-position: 0 1000px;}
 }
