@@ -10,7 +10,6 @@ function countdown() {
     count--;
     countdownEl.textContent = count;
   } else {
-    // Remove countdown and show main content
     countdownOverlay.style.display = 'none';
     mainContent.classList.remove('hidden');
     startHeartShower(2000); // Heart shower for 2 seconds
@@ -98,4 +97,46 @@ function createFloatingHeart() {
 
 function startFloatingHearts() {
   setInterval(createFloatingHeart, 400);
+}
+
+// AI Voice Playback using SpeechSynthesis API
+window.speechSynthesis.onvoiceschanged = () => {
+  window.speechSynthesis.getVoices(); // Load available voices
+};
+
+function playVoice(type) {
+  const synth = window.speechSynthesis;
+  const voices = synth.getVoices();
+
+  // Find male or female voice
+  let selectedVoice;
+  if (type === 'male') {
+    selectedVoice = voices.find(voice =>
+      voice.name.toLowerCase().includes('male') ||
+      voice.name.toLowerCase().includes('david') ||
+      voice.gender === 'male'
+    );
+  } else {
+    selectedVoice = voices.find(voice =>
+      voice.name.toLowerCase().includes('female') ||
+      voice.name.toLowerCase().includes('zira') ||
+      voice.gender === 'female'
+    );
+  }
+
+  // Fallback voice
+  if (!selectedVoice) selectedVoice = voices[0];
+
+  const message = `
+    Happy Wedding Anniversary. Together Forever, Hand in Hand.
+    You complete me. Forever is just the beginning. Together, always and forever.
+  `;
+
+  const utterance = new SpeechSynthesisUtterance(message);
+  utterance.voice = selectedVoice;
+  utterance.pitch = 1;
+  utterance.rate = 1;
+
+  synth.cancel(); // Stop current speech
+  synth.speak(utterance);
 }
