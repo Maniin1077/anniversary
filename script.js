@@ -13,12 +13,12 @@ function countdown() {
     // Remove countdown and show main content
     countdownOverlay.style.display = 'none';
     mainContent.classList.remove('hidden');
-    startHeartShower(200); // Heart shower for 2 seconds
+    startHeartShower(2000); // Heart shower for 2 seconds
     startFloatingHearts();
   }
 }
 
-setInterval(countdown, 200);
+setInterval(countdown, 1000);
 
 // Background Music Toggle
 const bgMusic = document.getElementById('bgMusic');
@@ -63,8 +63,8 @@ function createHeart() {
   }, 1600);
 }
 
-function startHeartShower(duration = 200) {
-  const interval = setInterval(createHeart, 150);
+function startHeartShower(duration = 2000) {
+  const interval = setInterval(createHeart, 400);
   setTimeout(() => clearInterval(interval), duration);
 }
 
