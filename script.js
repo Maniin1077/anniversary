@@ -13,7 +13,7 @@ function countdown() {
     // Remove countdown and show main content
     countdownOverlay.style.display = 'none';
     mainContent.classList.remove('hidden');
-    startHeartShower(2000); // Heart shower for 2 seconds
+    startHeartShower(200); // Heart shower for 2 seconds
     startFloatingHearts();
   }
 }
