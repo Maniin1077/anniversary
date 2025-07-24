@@ -18,7 +18,7 @@ function countdown() {
   }
 }
 
-setInterval(countdown, 1000);
+setInterval(countdown, 200);
 
 // Background Music Toggle
 const bgMusic = document.getElementById('bgMusic');
@@ -63,7 +63,7 @@ function createHeart() {
   }, 1600);
 }
 
-function startHeartShower(duration = 2000) {
+function startHeartShower(duration = 200) {
   const interval = setInterval(createHeart, 150);
   setTimeout(() => clearInterval(interval), duration);
 }
