@@ -85,7 +85,7 @@ function createFloatingHeart() {
   heart.textContent = '❤️';
 
   const size = 10 + Math.random() * 14;
-  const duration = 9000; // 🔒 fixed duration
+  const duration = 10000; // 🔒 fixed duration
 
   heart.style.position = 'fixed';
   heart.style.left = Math.random() * window.innerWidth + 'px';
