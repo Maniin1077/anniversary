@@ -17,7 +17,7 @@ function countdown() {
       mainContent.classList.remove('hidden');
 
       startHeartShower(2500); // smooth burst
-      startFloatingHearts();  // subtle background
+      startFloatingHearts();  // reduced floating hearts
     }, 500);
   }
 }
@@ -40,7 +40,7 @@ function toggleMusic() {
 }
 
 
-// 💖 Heart Shower (controlled + elegant)
+// 💖 Heart Shower (balanced burst)
 const heartShowerContainer = document.getElementById('heart-shower');
 
 function createHeart() {
@@ -51,7 +51,7 @@ function createHeart() {
 
   heart.style.position = 'fixed';
   heart.style.left = Math.random() * window.innerWidth + 'px';
-  heart.style.top = window.innerHeight + 'px'; // start from bottom
+  heart.style.top = window.innerHeight + 'px';
   heart.style.fontSize = size + 'px';
   heart.style.opacity = 0.9;
   heart.style.pointerEvents = 'none';
@@ -60,9 +60,8 @@ function createHeart() {
 
   heartShowerContainer.appendChild(heart);
 
-  // animate upward
   setTimeout(() => {
-    const drift = (Math.random() - 0.5) * 100; // slight sideways drift
+    const drift = (Math.random() - 0.5) * 100;
     heart.style.transform = `translate(${drift}px, -${window.innerHeight + 200}px)`;
     heart.style.opacity = 0;
   }, 20);
@@ -71,12 +70,12 @@ function createHeart() {
 }
 
 function startHeartShower(duration = 2500) {
-  const interval = setInterval(createHeart, 120); // balanced speed
+  const interval = setInterval(createHeart, 120);
   setTimeout(() => clearInterval(interval), duration);
 }
 
 
-// ❤️ Floating Background Hearts (soft + minimal)
+// ❤️ Floating Hearts Background (REDUCED + CLEAN)
 const heartsContainer = document.querySelector('.hearts-container');
 
 function createFloatingHeart() {
@@ -89,7 +88,7 @@ function createFloatingHeart() {
   heart.style.left = Math.random() * window.innerWidth + 'px';
   heart.style.bottom = '-20px';
   heart.style.fontSize = size + 'px';
-  heart.style.opacity = 0.5 + Math.random() * 0.3;
+  heart.style.opacity = 0.4 + Math.random() * 0.3; // softer look
   heart.style.pointerEvents = 'none';
   heart.style.color = '#ff4d6d';
   heart.style.zIndex = 0;
@@ -107,5 +106,10 @@ function createFloatingHeart() {
 }
 
 function startFloatingHearts() {
-  setInterval(createFloatingHeart, 800); // slower = cleaner look
+  setInterval(() => {
+    // only create some hearts (not every tick)
+    if (Math.random() > 0.5) {
+      createFloatingHeart();
+    }
+  }, 1000); // slower rate
 }
