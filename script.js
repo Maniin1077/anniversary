@@ -16,8 +16,8 @@ function countdown() {
       countdownOverlay.style.display = 'none';
       mainContent.classList.remove('hidden');
 
-      startHeartShower(2500); // smooth burst
-      startFloatingHearts();  // reduced floating hearts
+      startHeartShower(2500);
+      startFloatingHearts();
     }, 500);
   }
 }
@@ -61,8 +61,10 @@ function createHeart() {
   heartShowerContainer.appendChild(heart);
 
   setTimeout(() => {
-    const drift = (Math.random() - 0.5) * 100;
-    heart.style.transform = `translate(${drift}px, -${window.innerHeight + 200}px)`;
+    const drift = (Math.random() - 0.5) * 80;
+    const moveY = window.innerHeight + 200;
+
+    heart.style.transform = `translate(${drift}px, -${moveY}px)`;
     heart.style.opacity = 0;
   }, 20);
 
@@ -75,7 +77,7 @@ function startHeartShower(duration = 2500) {
 }
 
 
-// ❤️ Floating Hearts Background (REDUCED + CLEAN)
+// ❤️ Floating Hearts Background (CONSISTENT SPEED)
 const heartsContainer = document.querySelector('.hearts-container');
 
 function createFloatingHeart() {
@@ -83,33 +85,36 @@ function createFloatingHeart() {
   heart.textContent = '❤️';
 
   const size = 10 + Math.random() * 14;
+  const duration = 9000; // 🔒 fixed duration
 
   heart.style.position = 'fixed';
   heart.style.left = Math.random() * window.innerWidth + 'px';
   heart.style.bottom = '-20px';
   heart.style.fontSize = size + 'px';
-  heart.style.opacity = 0.4 + Math.random() * 0.3; // softer look
+  heart.style.opacity = 0.4 + Math.random() * 0.3;
   heart.style.pointerEvents = 'none';
   heart.style.color = '#ff4d6d';
   heart.style.zIndex = 0;
-  heart.style.transition = 'transform 8s linear, opacity 8s linear';
+  heart.style.transition = `transform ${duration}ms linear, opacity ${duration}ms linear`;
 
   heartsContainer.appendChild(heart);
 
   setTimeout(() => {
-    const drift = (Math.random() - 0.5) * 80;
-    heart.style.transform = `translate(${drift}px, -${window.innerHeight + 100}px)`;
+    const driftX = (Math.random() - 0.5) * 60; // small horizontal drift
+    const moveY = window.innerHeight + 120;    // 🔒 same distance for all
+
+    heart.style.transform = `translate(${driftX}px, -${moveY}px)`;
     heart.style.opacity = 0;
   }, 50);
 
-  setTimeout(() => heart.remove(), 8000);
+  setTimeout(() => heart.remove(), duration);
 }
 
 function startFloatingHearts() {
   setInterval(() => {
-    // only create some hearts (not every tick)
+    // reduce number of hearts (clean look)
     if (Math.random() > 0.5) {
       createFloatingHeart();
     }
-  }, 1000); // slower rate
+  }, 1000);
 }
